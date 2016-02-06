@@ -1,4 +1,4 @@
-DST = $(CAPTCHA_SOLVER_G)
+DST = /tmp/gdata
 
 # ------------------------------------
 
@@ -13,11 +13,10 @@ CAPTCHA_IMAGES_PATH = $(DST)/unknown_images
 
 # ------------------------------------
 
-all: check from_captcha
+all: from_captcha
 
-check:
-	@if [ -z $(DST) ]; then echo "Please set the CAPTCHA_SOLVER_G environment variable"; exit 1; fi
-	@mkdir -p $(DST)
+clean:
+	rm -rf $(DST)
 
 # -----------------------------------------------------------------------------------------------------
 
