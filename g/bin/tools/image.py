@@ -15,9 +15,8 @@ def write_rgb_image(fname, img):
 	io.imsave(fname, img)
 
 def resize_rgb_image(img, siz):
-	assert(False)
 	check_img(img)
-	return resize(img, size) * 255
+	return np.uint8(resize(img, siz) * 255)
 
 def flatten(img):
 	check_img(img)

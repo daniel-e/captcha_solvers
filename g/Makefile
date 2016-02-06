@@ -9,14 +9,17 @@ IMAGES = data/images
 # BINARIES, SCRIPTS
 FROM_CAPTCHA_BIN = bin/from_captcha.py
 DATASET_BIN = bin/build_dataset.py
+KNN_SH = bin/knn.sh
+export KNN_BIN = bin/knn.py
 
 # GENERATED OUTPUTS / INPUTS
-CAPTCHA_IMAGES_PATH = $(DST)/unknown_images
-DATASET_PATH = $(DST)/dataset
+export DATASET_PATH = $(DST)/dataset
+export CAPTCHA_IMAGES_PATH = $(DST)/unknown_images
+export KNN_SUMMARY = $(DST)/knn_summary.pdf
 
 # -----------------------------------------------------------------------------
 
-all: from_captcha dataset
+all: from_captcha dataset knn
 
 clean:
 	rm -rf $(DST)
@@ -42,3 +45,11 @@ $(DATASET_PATH): $(DATASET_BIN) $(IMAGES)
 	@echo "Creating dataset ..."
 	@rm -rf $@
 	@$(DATASET_BIN) -i $(IMAGES) -o $@
+
+# -----------------------------------------------------------------------------
+
+knn: $(KNN_SUMMARY)
+
+$(KNN_SUMMARY): $(CAPTCHA_IMAGES_PATH) $(DATASET_PATH) $(KNN_BIN) $(KNN_SH)
+	@echo "Computing knn ..."
+	@$(KNN_SH)

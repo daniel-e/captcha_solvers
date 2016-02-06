@@ -29,7 +29,7 @@ for lb, fn in labels_and_files():
 		mapping[lb] = len(mapping)
 	c = mapping[lb]
 	print (c, lb, fn)
-	for i in normed_windows(read_rgb_image(fn)):
+	for i in normed_windows(read_rgb_image(fn), [1.0, 0.5]):
 		d = flatten(i)
 		f.write(",".join([str(k) for k in d]) + "\n")
 		l.write(str(c) + "\n")
