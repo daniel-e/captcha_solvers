@@ -1,1 +1,3 @@
 - [x] create dataset from images
+- [ ] knn.py
+- [ ] objects.py

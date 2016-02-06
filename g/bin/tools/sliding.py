@@ -4,14 +4,20 @@ import unittest, math
 import numpy as np
 from skimage.transform import resize
 
-def normed_windows(arr, p = [0.5, 0.38, 0.25], d = 32):
+def normed_windows(arr, p = [0.5, 0.38, 0.25], d = 32, details = False):
     sizes = win_sizes(arr, p)
-    pos = win_positions(arr, sizes)
-    return (np.uint8(resize(i, (d, d)) * 255) for i in sub_images(arr, pos))
+    pos = list(win_positions(arr, sizes))
+    # pos = [(window_size, y, x), ...]
+    if not details:
+        return (resiz(i, d) for i in sub_images(arr, pos))
+    return ((resiz(i, d), p) for i, p in zip(sub_images(arr, pos), pos))
 
 # -----------------------------------------------------------------------------
 # internal functions
 # -----------------------------------------------------------------------------
+
+def resiz(i, d):
+    return np.uint8(resize(i, (d, d)) * 255)
 
 def win_sizes(arr, p, min_window_size = 22):
 	m = min(arr.shape[0], arr.shape[1])
