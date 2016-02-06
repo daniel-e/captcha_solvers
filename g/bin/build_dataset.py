@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from tools.sliding import normed_windows
-from tools.image import read_rgb_image, flatten
+from tools.image import read_rgb_image, flatten, resize_rgb_image
 import argparse, os
 
 p = argparse.ArgumentParser()
@@ -29,7 +29,8 @@ for lb, fn in labels_and_files():
 		mapping[lb] = len(mapping)
 	c = mapping[lb]
 	print (c, lb, fn)
-	for i in normed_windows(read_rgb_image(fn), [1.0, 0.5]):
+	img = resize_rgb_image(read_rgb_image(fn), (32, 32))
+	for i in normed_windows(img, [1.0]):
 		d = flatten(i)
 		f.write(",".join([str(k) for k in d]) + "\n")
 		l.write(str(c) + "\n")
