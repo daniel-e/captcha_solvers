@@ -1,1 +1,2 @@
 bin/*.pyc
+bin/tools/__pycache__
